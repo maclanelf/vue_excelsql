@@ -1,0 +1,6 @@
+.el-message{
+    z-index:1000000 !important;
+}
+.myDrawer .el-drawer__header{
+    display: block;
+}
