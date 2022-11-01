@@ -78,36 +78,35 @@ function changeVal() {
     if (reg.test(insert.value)) {
         //获取属性名字
         let field = insert.value.substring(insert.value.indexOf('(') + 1, insert.value.indexOf(')'))
-        // input1Arr.value = field.split(',')
-
         //获取属性对应的值
         let sub1 = insert.value.substring(insert.value.indexOf('values') + 6)
         let value = sub1.substring(sub1.indexOf('(') + 1, sub1.lastIndexOf(')'))
         //如果某个value内包含了多个,做一个简单的转换,---暂时不做
-        /* let regc = /',{1,n}'|'，{1,n}'/g
-        const comma = regc.exec(value)
-        if (comma!==null) {
-            comma.forEach((item,index) => {
-                if (!/to_date|to_char/g.test(item)){
-                    regc.lastIndex = 0
-                    value = value.replace(item,item.replaceAll(regc,'_'))
-                }
-            })
-        } */
-        if (/',{2,n}'|'，{2,n}'/g.test(value)) {
-            value = value.replaceAll(/',{2,n}'|'，{2,n}'/g,'_')
-        }
         //split后的值可能会包含to_date('06-10-2022 20:50:26', 'dd-mm-yyyy hh24:mi:ss')这样的值被误拆分,需要处理
         let valueArr = value.split(',')
         let valueArr1 = []
+        let removeArr = []
         valueArr.forEach((item, index) => {
+            if (removeArr.indexOf(index) != -1) return 
             // if(index==17) debugger // eslint-disable-line
+            const regs = /^'.*[^']$/g //以'开头,不以'结束
+            const rege = /.*'$/g //不以'开头,以'结束
             const regx = /to_date|to_char/g
             if (regx.test(item)) {
                 valueArr1.push(item.trim() + ',' + valueArr[index + 1].trim())
-            } else if (index !== 0 && regx.test(valueArr[index - 1])) {
-                return
-            } else {
+                removeArr.push(index+1)
+            } else if (regs.test(item)) {
+                let ind = index
+                let ele = item
+                while(!rege.test(ele)){
+                        rege.lastIndex = 0
+                        ind = ind+1
+                        ele = valueArr[ind]
+                        removeArr.push(ind)
+                        item = item.trim()+ele
+                }
+                valueArr1.push(item)
+            }else {
                 valueArr1.push(item.trim())
             }
         })
