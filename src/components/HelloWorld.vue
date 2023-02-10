@@ -92,10 +92,10 @@ function changeVal() {
             const regs = /^'.*[^']$/g //以'开头,不以'结束
             const rege = /.*'$/g //不以'开头,以'结束
             const regx = /to_date|to_char/g
-            if (regx.test(item)) {
+            if (regx.test(item.trim())) {
                 valueArr1.push(item.trim() + ',' + valueArr[index + 1].trim())
                 removeArr.push(index+1)
-            } else if (regs.test(item)) {
+            } else if (regs.test(item.trim())) {
                 let ind = index
                 let ele = item
                 while(!rege.test(ele)){
