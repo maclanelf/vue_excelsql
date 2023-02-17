@@ -182,7 +182,7 @@ function generateSqlBatchs(){
     const startRow = Excel.value.startRow
     const maxRow = Excel.value.maxRow
     if (maxRow==0) ElMessage({ type: 'warning', message: '没检测到文件,要不上传个文件试试?', })
-    for (let i = startRow; i < parseInt(maxRow); i++) {
+    for (let i = startRow; i <= parseInt(maxRow); i++) {
         const ina = origin.map((item, index) => {
             // debugger // eslint-disable-line
             if (item.isExcel) {
