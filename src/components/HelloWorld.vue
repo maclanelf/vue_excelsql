@@ -39,6 +39,12 @@
                 </div>
             </template>
         </el-drawer>
+        <div>
+            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 支持取值模式,取值模式必须由双++,或者双~~包裹(+D3+,~D3~),D3即对应单元格的地址</p>
+            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 取值模式下,<span style="color: red">~D3~</span> 取出的值不含单引号,<span style="color: red">+D3+</span> 取出的值包含单引号</p>
+            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 取值模式下,目前仅支持单张Excel表的Sheet1,多个Sheet页是不支持的</p>
+            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 目前仅支持 <span style="color: red">insert</span> 语句</p>
+        </div>
     </div>
 </template>
 
@@ -231,7 +237,8 @@ function generateSql(ina) {
                 matchArr.forEach((match, index) => {
                     // debugger // eslint-disable-line
                     const replaceValue = match.replaceAll(/\+|~/g, "").trim()
-                    const excelValue = Excel.value.getValue(replaceValue).v
+                    //当查找的单元格实际是空值的时候,则使用字符串''替代返回的值
+                    const excelValue = Excel.value.getValue(replaceValue)===undefined ? '' : Excel.value.getValue(replaceValue).v
                     realvalue = Object.values(item)[0].replace(replaceValue, excelValue)
                 })
 
