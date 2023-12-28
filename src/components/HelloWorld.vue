@@ -40,10 +40,10 @@
             </template>
         </el-drawer>
         <div>
-            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 支持取值模式,取值模式必须由双++,或者双~~包裹(+D3+,~D3~),D3即对应单元格的地址</p>
-            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 取值模式下,<span style="color: red">~D3~</span> 取出的值不含单引号,<span style="color: red">+D3+</span> 取出的值包含单引号</p>
-            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 取值模式下,目前仅支持单张Excel表的Sheet1,多个Sheet页是不支持的</p>
-            <p style="font-size: 5px;margin-left: 10px;color: grey;font-style:italic;">* 目前仅支持 <span style="color: red">insert</span> 语句</p>
+            <p class="tip">* 支持取值模式,取值模式必须由双++,或者双~~包裹(+D3+,~D3~),D3即对应单元格的地址</p>
+            <p class="tip">* 取值模式下,<span style="color: red">~D3~</span> 取出的值不含单引号,<span style="color: red">+D3+</span> 取出的值包含单引号</p>
+            <p class="tip">* 取值模式下,目前仅支持单张Excel表的Sheet1,多个Sheet页是不支持的</p>
+            <p class="tip">* 目前仅支持 <span style="color: red">insert</span> 语句</p>
         </div>
     </div>
 </template>
@@ -350,5 +350,11 @@ function confirmClick() {
 .ExcelXls{
     display: inline-block;
     margin: 0 10px;
+}
+.tip{
+    font-size: 10px;
+    margin-left: 10px;
+    color: grey;
+    font-style:italic;
 }
 </style>
